@@ -1,0 +1,25 @@
+{
+  "name": "esl",
+  "displayName": "ESL",
+  "description": "Syntax highlighting for ESL.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "esl",
+      "aliases": ["ESL", "esl"],
+      "extensions": [".esl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "esl",
+      "scopeName": "source.esl",
+      "path": "./syntaxes/esl.tmLanguage.json"
+    }]
+  }
+}

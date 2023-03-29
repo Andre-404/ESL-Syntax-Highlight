@@ -1,0 +1,293 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ESL",
+	"patterns": [
+		{
+			"include": "#declaration"
+		}
+	],
+	"repository": {
+		"declaration":{
+			"patterns":[
+				{
+					"include": "#class-declaration"
+				},
+				{
+					"include": "#function-declaration"
+				},
+				{
+					"include": "#variable-declaration"
+				},
+				{
+					"include": "#statement"
+				}
+			]
+		},
+		"statement":{
+			"patterns":[
+				{
+					"include": "#block"
+				},
+				{
+					"include": "#control-keyword"
+				},
+				{
+					"include": "#access-modifier"
+				},
+				{
+					"include": "#preprocessor-keyword"
+				},
+				{
+					"include": "#expression"
+				}
+			]
+		},
+		"expression":{
+			"patterns": [
+				{
+					"include": "#line-comment"
+				},
+				{
+					"include": "#block-comment"
+				},
+				{
+					"include": "#operator"
+				},
+				{
+					"include": "#async-keyword"
+				},
+				{
+					"include": "#paren-expression"
+				},
+				{
+					"include": "#function-call"
+				},
+				{
+					"include": "#class-call"
+				},
+				{
+					"include": "#literal"
+				},
+				{
+					"include": "#property-access"
+				},
+				{
+					"include": "#other"
+				}
+			]
+		},
+		"other":{
+			"patterns": [
+				{
+					"match": ";",
+					"name": "punctuation.terminator.statement.esl"
+				},
+				{
+					"match": ",",
+					"name": "punctuation.separator.parameter.esl"
+				}
+			]
+		},
+		"property-access":{
+			"match": "\\.",
+			"name": "punctuation.accessor.esl"
+		},
+		"literal":{
+			"patterns": [
+				{
+					"match": "[A-Za-z_]\\w*",
+					"name": "variable.other.esl"
+				},
+				{
+					"include": "#string"
+				},
+				{
+					"include": "#constant"
+				},
+				{
+					"name": "variable.language.esl",
+					"match": "\\b(this|super)\\b"
+				}
+			]
+		},
+		"class-call":{
+			"match": "(new)(\\s+)([A-Za-z_]\\w*)",
+			"captures": {
+				"1": {
+					"name": "keyword.operator.new.esl"
+				},
+				"3": {
+					"name": "entity.name.type.class.esl"
+				}
+			}
+		},
+		"function-call":{
+			"begin": "([A-Za-z_]\\w*)(\\s*)(\\()",
+			"beginCaptures": {
+				"1":{
+					"name": "entity.name.function"
+				},
+				"3":{
+					"name": "meta.brace.round.esl"
+				}
+			},
+			"end": "(\\))",
+			"endCaptures": {
+				"1":{
+					"name": "meta.brace.round.esl"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#expression"
+				}
+			]
+		},
+		"paren-expression":{
+			"patterns": [
+				{
+					"begin": "(\\[)",
+					"end": "(\\])",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					],
+					"captures": {
+						"1": {
+							"name": "meta.brace.square.esl"
+						}
+					}
+				},
+				{
+					"begin": "(\\()",
+					"end": "(\\))",
+					"patterns": [
+						{
+							"include": "#expression"
+						}
+					],
+					"captures": {
+						"1": {
+							"name": "meta.brace.round.esl"
+						}
+					}
+				}
+			]
+		},
+		"async-keyword":{
+			"match": "\\b(await|async)\\b",
+			"name": "keyword.other.async.esl"
+		},
+		"operator":{
+			"match": "[=!%*+\\-\\/:<=>?^|~]|(:{1,2}|[!|&%^+\\/\\-<>]?=|=[=>]|\\.\\.=?)",
+			"name": "keyword.operator.esl"
+		},
+		"access-modifier": {
+			"match": "\\b(pub)\\b",
+			"name": "storage.modifier.pub.esl"
+		},
+		"preprocessor-keyword":{
+			"patterns": [
+				{
+					"match": "\\b(expr|tt)\\b",
+					"name": "storage.type.macro.esl"
+				},
+				{
+					"match": "\\b(import|addMacro)\\b",
+					"name": "keywords.other.preprocessor.esl"
+				}
+			]
+		},
+		"control-keyword":{
+			"match": "\\b(if|else|while|for|return|switch|break|advance|continue|case|default)\\b",
+			"name": "keyword.control.esl"
+		},
+		"block":{
+			"begin": "(\\{)",
+			"end": "(\\})",
+			"patterns": [
+				{
+					"include": "#declaration"
+				}
+			],
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.block.esl"
+				}
+			}
+		},
+		"variable-declaration":{
+			"match": "(let)(\\s+)([A-Za-z_]\\w*)",
+			"captures":{
+				"1": {
+					"name": "storage.type.variable.esl"
+				},
+				"3": {
+					"name": "variable.other.esl"
+				}
+			}
+		},
+		"function-declaration":{
+			"match": "(fn)(\\s+)([A-Za-z_]\\w*)",
+			"captures":{
+				"1": {
+					"name": "storage.type.function.esl"
+				},
+				"3": {
+					"name": "entity.name.function"
+				}
+			}
+		},
+		"class-declaration":{
+			"match": "(class)(\\s+)([A-Za-z_]\\w*)",
+			"captures":{
+				"1": {
+					"name": "storage.type.class.esl"
+				},
+				"3": {
+					"name": "entity.name.class"
+				}
+			}
+		},
+		"string": {
+			"name": "string.quoted.double.esl",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"match": "\\\\.",
+					"name": "constant.character.escape.esl"
+				}
+			],
+			"contentName": "string.quoted.double.esl"
+		},
+		"constant": {
+			"patterns": [
+				{
+					"name": "constant.numeric.esl",
+					"match": "([0-9]+(\\.[0-9]+)?)"
+				},
+				{
+					"name": "constant.language.boolean.esl",
+					"match": "\\b(true|false)\\b"
+				},
+				{
+					"name": "constant.language.null.esl",
+					"match": "\\b(null)\\b"
+				}
+			]
+		},
+		"line-comment": {
+			"match": "\\/\\/\\\\n",
+			"name": "comment.line.double-slash.esl"
+		},
+		"block-comment": {
+			"begin": "\\/\\*",
+			"end": "\\*\\/",
+			"name": "comment.block.esl",
+			"contentName": "comment.block.esl"
+		}
+	},
+	"scopeName": "source.esl"
+}
