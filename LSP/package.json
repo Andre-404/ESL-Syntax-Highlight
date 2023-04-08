@@ -1,0 +1,20 @@
+{
+	"name": "ESL-LSP",
+	"description": "VSCode part of a language server",
+	"license": "MIT",
+	"version": "0.0.1",
+	"publisher": "a",
+	"engines": {
+		"vscode": "^1.75.0",
+		"node": "*"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^8.1.0",
+		"vscode-languageserver": "^8.1.0",
+		"vscode-languageserver-textdocument": "^1.0.8",
+		"vscode-uri": "3.0.7"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.75.1"
+	}
+}

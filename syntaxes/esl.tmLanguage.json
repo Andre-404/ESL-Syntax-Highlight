@@ -32,6 +32,9 @@
 					"include": "#control-keyword"
 				},
 				{
+					"include": "#for-statement"
+				},
+				{
 					"include": "#access-modifier"
 				},
 				{
@@ -58,9 +61,6 @@
 				},
 				{
 					"include": "#paren-expression"
-				},
-				{
-					"include": "#function-call"
 				},
 				{
 					"include": "#class-call"
@@ -95,6 +95,10 @@
 		"literal":{
 			"patterns": [
 				{
+					"name": "variable.language.esl",
+					"match": "\\b(this|super)\\b"
+				},
+				{
 					"match": "[A-Za-z_]\\w*",
 					"name": "variable.other.esl"
 				},
@@ -103,45 +107,12 @@
 				},
 				{
 					"include": "#constant"
-				},
-				{
-					"name": "variable.language.esl",
-					"match": "\\b(this|super)\\b"
 				}
 			]
 		},
 		"class-call":{
-			"match": "(new)(\\s+)([A-Za-z_]\\w*)",
-			"captures": {
-				"1": {
-					"name": "keyword.operator.new.esl"
-				},
-				"3": {
-					"name": "entity.name.type.class.esl"
-				}
-			}
-		},
-		"function-call":{
-			"begin": "([A-Za-z_]\\w*)(\\s*)(\\()",
-			"beginCaptures": {
-				"1":{
-					"name": "entity.name.function"
-				},
-				"3":{
-					"name": "meta.brace.round.esl"
-				}
-			},
-			"end": "(\\))",
-			"endCaptures": {
-				"1":{
-					"name": "meta.brace.round.esl"
-				}
-			},
-			"patterns": [
-				{
-					"include": "#expression"
-				}
-			]
+			"match": "\\b(new)\\b",
+			"name": "keyword.operator.new.esl"
 		},
 		"paren-expression":{
 			"patterns": [
@@ -180,7 +151,7 @@
 			"name": "keyword.other.async.esl"
 		},
 		"operator":{
-			"match": "[=!%*+\\-\\/:<=>?^|~]|(:{1,2}|[!|&%^+\\/\\-<>]?=|=[=>]|\\.\\.=?)",
+			"match": "[=!%*+\\-\\/:<=>?^|~]|(:{1,2}|[!|&%^+\\/\\-<>]?=|=[=>]|\\.\\.=?)|(instanceof)",
 			"name": "keyword.operator.esl"
 		},
 		"access-modifier": {
@@ -200,8 +171,30 @@
 			]
 		},
 		"control-keyword":{
-			"match": "\\b(if|else|while|for|return|switch|break|advance|continue|case|default)\\b",
+			"match": "\\b(if|else|while|return|switch|break|advance|continue|case|default)\\b",
 			"name": "keyword.control.esl"
+		},
+		"for-statement":{
+			"begin": "(for\\s*\\()",
+			"end": "(\\))",
+			"patterns": [
+				{
+					"include": "#declaration"
+				}
+			],
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.esl"
+				},
+				"2":{
+					"name": "meta.brace.round.esl"
+				}
+			},
+			"endCaptures": {
+				"1":{
+					"name": "meta.brace.round.esl"
+				}
+			}
 		},
 		"block":{
 			"begin": "(\\{)",
@@ -218,37 +211,16 @@
 			}
 		},
 		"variable-declaration":{
-			"match": "(let)(\\s+)([A-Za-z_]\\w*)",
-			"captures":{
-				"1": {
-					"name": "storage.type.variable.esl"
-				},
-				"3": {
-					"name": "variable.other.esl"
-				}
-			}
+			"match": "\\b(let)\\b",
+			"name": "storage.type.variable.esl"
 		},
 		"function-declaration":{
-			"match": "(fn)(\\s+)([A-Za-z_]\\w*)",
-			"captures":{
-				"1": {
-					"name": "storage.type.function.esl"
-				},
-				"3": {
-					"name": "entity.name.function"
-				}
-			}
+			"match": "\\b(fn)\\b",
+			"name": "storage.type.function.esl"
 		},
 		"class-declaration":{
-			"match": "(class)(\\s+)([A-Za-z_]\\w*)",
-			"captures":{
-				"1": {
-					"name": "storage.type.class.esl"
-				},
-				"3": {
-					"name": "entity.name.class"
-				}
-			}
+			"match": "\\b(class)\\b",
+			"name": "storage.type.class.esl"
 		},
 		"string": {
 			"name": "string.quoted.double.esl",
