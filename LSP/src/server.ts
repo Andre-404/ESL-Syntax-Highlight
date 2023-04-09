@@ -52,7 +52,6 @@ connection.onInitialized(() => {
 	}
 	if (hasWorkspaceFolderCapability) {
 		connection.workspace.onDidChangeWorkspaceFolders(_event => {
-			connection.console.log('Workspace folder change event received.');
 		});
 	}
 });
@@ -81,10 +80,6 @@ documents.onDidSave((e) => {
 async function validateTextDocument(doc: TextDocument): Promise<void> {
 	connection.sendNotification("esl/updateDiagnostics", doc.uri);
 }
-
-connection.onDidChangeWatchedFiles(_change => {
-	connection.console.log('We received a file change event');
-});
 
 // Make the text document manager listen on the connection
 // for open, change and close text document events

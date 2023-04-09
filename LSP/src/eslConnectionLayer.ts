@@ -1,4 +1,5 @@
 import * as vscode from 'vscode'
+// If vscode.Uri is used the whole program crashes for some arcane reason
 import { URI } from 'vscode-uri'
 
 export interface ESLError{

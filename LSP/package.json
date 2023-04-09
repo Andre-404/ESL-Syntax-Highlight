@@ -2,10 +2,10 @@
 	"name": "ESL-LSP",
 	"description": "VSCode part of a language server",
 	"license": "MIT",
-	"version": "0.0.1",
-	"publisher": "a",
+	"version": "1.0.0",
+	"publisher": "andreamaric",
 	"engines": {
-		"vscode": "^1.75.0",
+		"vscode": "^1.76.0",
 		"node": "*"
 	},
 	"dependencies": {

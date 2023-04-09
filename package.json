@@ -2,7 +2,9 @@
   "name": "esl",
   "displayName": "ESL",
   "description": "Syntax highlighting for ESL.",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "author": "Andrea Maric",
+  "publisher": "andreamaric",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -10,8 +12,7 @@
     "Programming Languages"
   ],
   "activationEvents": [
-    "onCommand:esl.runThisFile",
-    "onLanguage:esl"
+    
   ],
   "main": "./LSP/out/extension",
   "contributes": {
@@ -19,12 +20,6 @@
 			"type": "object",
 			"title": "Config",
 			"properties": {
-				"languageServerExample.maxNumberOfProblems": {
-					"scope": "resource",
-					"type": "number",
-					"default": 100,
-					"description": "Controls the maximum number of problems produced by the server."
-				},
 				"languageServerExample.trace.server": {
 					"scope": "window",
 					"type": "string",

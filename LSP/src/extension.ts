@@ -1,8 +1,3 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
-
 import * as path from 'path';
 import * as vscode from 'vscode';
 import {legend, DocumentSemanticTokensProvider} from './semanticTokenProvider';
@@ -81,25 +76,22 @@ export function activate(context: vscode.ExtensionContext) {
 	const collection = vscode.languages.createDiagnosticCollection('ESL Diagnostics');
 	
 	// Server checks if there are any errors in the code
-	function sortDiagnostics(errors:ESLError[]) : Map<string, ESLError[]>{
-		const diagnosticMap: Map<string, ESLError[]> = new Map();
-		errors.forEach((error) => {
-			if(diagnosticMap.get(error.path) == undefined) diagnosticMap.set(error.path, []);
-			diagnosticMap.get(error.path).push(error);
-			console.log(error);
-		});
-		return diagnosticMap;
-	}
 	client.onNotification("esl/updateDiagnostics", async (uri: string) => {
-		const diagnostics = await ESLService.runCommand("-validate-file",uri, []);
-		collection.clear();
-		const map = sortDiagnostics(JSON.parse(diagnostics));
 		const severityMap = {
 			"error": vscode.DiagnosticSeverity.Error,
 			"warning": vscode.DiagnosticSeverity.Warning,
 			"information": vscode.DiagnosticSeverity.Information,
 			"hint": vscode.DiagnosticSeverity.Hint
 		}
+		const diagnostics = JSON.parse(await ESLService.runCommand("-validate-file",uri, []));
+		collection.clear();
+		const map: Map<string, ESLError[]> = new Map();
+		diagnostics.forEach((error) => {
+			if(map.get(error.path) == undefined) map.set(error.path, []);
+			map.get(error.path).push(error);
+			console.log(error);
+		});
+		// Keys are file paths, each entry holds the errors for that file
 		map.forEach((value:ESLError[], key: string) => {
 			collection.set(vscode.Uri.file(key), value.map<vscode.Diagnostic>((value:ESLError) => {
 				return {
@@ -123,6 +115,7 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	});
 
+	// Better than using workspace.saveAll
 	client.onNotification("esl/saveDocument", (uri:string) =>{
 		let doc = vscode.workspace.textDocuments.find((value:vscode.TextDocument) => value.uri.toString() == uri);
 		doc.save();
@@ -131,6 +124,7 @@ export function activate(context: vscode.ExtensionContext) {
 	client.onNotification("esl/runThisFileFailed", (error) => {
 		vscode.window.showErrorMessage(error);
 	});
+	//Semantic token provider
 	context.subscriptions.push(vscode.languages.registerDocumentSemanticTokensProvider({ language: 'esl'}, new DocumentSemanticTokensProvider(), legend));
 }
 
