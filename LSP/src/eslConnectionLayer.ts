@@ -23,7 +23,9 @@ export class ESLService{
     }
 
     public static runFile(filePath:string, terminal:vscode.Terminal){
-		terminal.sendText(this.singleton.path + " " + filePath.substring(1, filePath.length), true);
+        let path = URI.parse(filePath).path;
+        path = path.substring(1, path.length);
+		terminal.sendText(this.singleton.path + " " + path, true);
     }
 
     public static runCommand(command: string, filePath:string, args: string[]): Promise<any>{
