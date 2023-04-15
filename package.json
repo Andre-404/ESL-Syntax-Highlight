@@ -14,6 +14,7 @@
   "activationEvents": [
     
   ],
+  "icon": "./ESL_icon.png",
   "main": "./LSP/out/extension",
   "contributes": {
     "configuration": {
@@ -37,7 +38,11 @@
       "id": "esl",
       "aliases": ["ESL", "esl"],
       "extensions": [".esl"],
-      "configuration": "./language-configuration.json"
+      "configuration": "./language-configuration.json",
+      "icon": {
+        "light": "./ESL_icon.png",
+        "dark": "./ESL_icon.png"
+      }
     }],
     "grammars": [{
       "language": "esl",
@@ -51,6 +56,10 @@
         "category": "ESL"
       }
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Andre-404/ESL-Syntax-Highlight"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",

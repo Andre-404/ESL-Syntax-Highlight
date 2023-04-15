@@ -151,7 +151,7 @@
 			"name": "keyword.other.async.esl"
 		},
 		"operator":{
-			"match": "[=!%*+\\-\\/:<=>?^|~]|(:{1,2}|[!|&%^+\\/\\-<>]?=|=[=>]|\\.\\.=?)|(instanceof)",
+			"match": "[=!%*+\\-\\/:<=>?^|~$]|(:{1,2}|[!|&%^+\\/\\-<>]?=|=[=>]|\\.\\.=?)|(instanceof)",
 			"name": "keyword.operator.esl"
 		},
 		"access-modifier": {
@@ -166,12 +166,15 @@
 				},
 				{
 					"match": "\\b(import|addMacro)\\b",
-					"name": "keywords.other.preprocessor.esl"
+					"name": "keyword.other.preprocessor.esl"
 				}
 			]
 		},
+		"macro":{
+
+		},
 		"control-keyword":{
-			"match": "\\b(if|else|while|return|switch|break|advance|continue|case|default)\\b",
+			"match": "\\b(if|else|while|return|switch|break|advance|continue|case|default|in)\\b",
 			"name": "keyword.control.esl"
 		},
 		"for-statement":{
@@ -251,7 +254,7 @@
 			]
 		},
 		"line-comment": {
-			"match": "\\/\\/\\\\n",
+			"match": "[/][/].*",
 			"name": "comment.line.double-slash.esl"
 		},
 		"block-comment": {
