@@ -8,6 +8,10 @@
 		"vscode": "^1.76.0",
 		"node": "*"
 	},
+	"activationEvents": [
+		"onLanguage:esl",
+		"onCommand:esl.runThisFile"
+	 ],
 	"dependencies": {
 		"vscode-languageclient": "^8.1.0",
 		"vscode-languageserver": "^8.1.0",
@@ -16,5 +20,9 @@
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.75.1"
+	},
+	"scripts": {
+		"update-vscode": "vscode-install",
+		"postinstall": "vscode-install"
 	}
 }

@@ -12,7 +12,8 @@
     "Programming Languages"
   ],
   "activationEvents": [
-    
+    "onLanguage:esl",
+    "onCommand:esl.runThisFile"
   ],
   "icon": "./ESL_icon.png",
   "main": "./LSP/out/extension",
@@ -64,5 +65,12 @@
   "devDependencies": {
     "@types/node": "^16.11.7",
     "typescript": "^5.0.2"
-  }
+  },
+  "scripts": {
+		"vscode:prepackage": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"lint": "eslint ./LSP/src --ext .ts,.tsx",
+		"postinstall": "cd LSP && npm install && cd .."
+	}
 }

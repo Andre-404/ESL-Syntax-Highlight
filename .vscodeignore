@@ -7,8 +7,3 @@
 contributing.md
 .travis.yml
 *.vsix
-LSP/node_modules/**
-!LSP/node_modules/vscode-jsonrpc/**
-!LSP/node_modules/vscode-languageclient/**
-!LSP/node_modules/vscode-languageserver-protocol/**
-!LSP/node_modules/vscode-languageserver-types/**
