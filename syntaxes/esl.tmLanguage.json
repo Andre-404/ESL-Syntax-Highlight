@@ -99,14 +99,14 @@
 					"match": "\\b(this|super)\\b"
 				},
 				{
+					"include": "#constant"
+				},
+				{
 					"match": "[A-Za-z_]\\w*",
 					"name": "variable.other.esl"
 				},
 				{
 					"include": "#string"
-				},
-				{
-					"include": "#constant"
 				}
 			]
 		},
@@ -147,11 +147,11 @@
 			]
 		},
 		"async-keyword":{
-			"match": "\\b(await|async)\\b",
+			"match": "\\b(await|async|fn)\\b",
 			"name": "keyword.other.async.esl"
 		},
 		"operator":{
-			"match": "[=!%*+\\-\\/:<=>?^|~$]|(:{1,2}|[!|&%^+\\/\\-<>]?=|=[=>]|\\.\\.=?)|(instanceof)",
+			"match": "[=!%*+\\-\\/:<=>?^|~$&]|(:{1,2}|[!|&%^+\\/\\-<>]?=|=[=>]|\\.\\.=?)|(\\b(instanceof)\\b)|(\\b(in)\\b)",
 			"name": "keyword.operator.esl"
 		},
 		"access-modifier": {
@@ -165,7 +165,7 @@
 					"name": "storage.type.macro.esl"
 				},
 				{
-					"match": "\\b(import|addMacro)\\b",
+					"match": "\\b(import|addMacro|as)\\b",
 					"name": "keyword.other.preprocessor.esl"
 				}
 			]
@@ -174,7 +174,7 @@
 
 		},
 		"control-keyword":{
-			"match": "\\b(if|else|while|return|switch|break|advance|continue|case|default|in)\\b",
+			"match": "\\b(if|else|while|return|switch|break|advance|continue|case|default)\\b",
 			"name": "keyword.control.esl"
 		},
 		"for-statement":{

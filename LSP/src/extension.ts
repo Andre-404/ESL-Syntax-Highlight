@@ -83,13 +83,13 @@ export function activate(context: vscode.ExtensionContext) {
 			"information": vscode.DiagnosticSeverity.Information,
 			"hint": vscode.DiagnosticSeverity.Hint
 		}
-		const diagnostics = JSON.parse(await ESLService.runCommand("-validate-file",uri, []));
+		const str = await ESLService.runCommand("-validate-file",uri, []);
+		const diagnostics = JSON.parse(str);
 		collection.clear();
 		const map: Map<string, ESLError[]> = new Map();
 		diagnostics.forEach((error) => {
 			if(map.get(error.path) == undefined) map.set(error.path, []);
 			map.get(error.path).push(error);
-			console.log(error);
 		});
 		// Keys are file paths, each entry holds the errors for that file
 		map.forEach((value:ESLError[], key: string) => {

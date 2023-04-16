@@ -37,12 +37,15 @@ export class ESLService{
             process.stdout.on('data', (data) => {
                 try {
                     resolve(data.toString());
+                    process.kill();
                 } catch (error) {
                     reject(error);
+                    process.kill();
                 }
             });
             process.stderr.on('data', (data) => {
                 reject(data);
+                process.kill();
                 console.log("Error encountered when analyzing ESL: " + data.toString());
             });
         });
